@@ -28,9 +28,9 @@ main{max-width:1000px;margin:auto;padding:12px 12px 90px}
 .card h2{margin:0 0 6px;color:var(--r)}
 .btn{background:var(--r);color:#fff;border:0;border-radius:10px;padding:12px 18px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
 .btn:active{background:var(--rd)}
-.inf{background:var(--rd);font-size:12px;padding:4px 12px;display:flex;justify-content:space-between;gap:4px 14px;flex-wrap:wrap;max-width:none}.cats{display:flex;gap:6px;overflow-x:auto;padding:4px 0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 124px);background:var(--bg);z-index:4}
+.inf{background:var(--rd);font-size:12px;padding:4px 12px;display:flex;justify-content:space-between;gap:4px 14px;flex-wrap:wrap;max-width:none}.sbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 124px);background:var(--bg);z-index:4;padding:4px 0}.sbar input{width:100%;padding:11px 16px;font-size:16px;border:1px solid var(--b);border-radius:24px;background:var(--c);color:var(--t);margin-bottom:6px;outline:none}.sbar input:focus{border-color:var(--r)}.cats{display:flex;gap:6px;overflow-x:auto;padding:2px 0}
 .cats a{white-space:nowrap;background:var(--c);border:1px solid var(--b);border-radius:20px;padding:6px 12px;font-size:13px;color:var(--t);text-decoration:none}
-h3{background:var(--r);color:#fff;margin:16px 0 0;padding:8px 12px;border-radius:10px 10px 0 0;font-size:16px;scroll-margin-top:180px}
+h3{background:var(--r);color:#fff;margin:16px 0 0;padding:8px 12px;border-radius:10px 10px 0 0;font-size:16px;scroll-margin-top:250px}
 .it{cursor:pointer;-webkit-tap-highlight-color:rgba(208,2,27,.15);display:flex;align-items:center;gap:8px;background:var(--c);border:1px solid var(--b);border-top:0;padding:8px 10px}
 .it:last-child{border-radius:0 0 10px 10px}.it .n{flex:1;font-size:14px}.it .p{font-weight:700;white-space:nowrap}.ic{font-size:20px;width:26px;text-align:center;flex:none}
 .q{display:flex;align-items:center;gap:4px}.q button{width:30px;height:30px;border-radius:50%;border:1px solid var(--r);background:var(--c);color:var(--r);font-size:18px;cursor:pointer}
@@ -65,7 +65,7 @@ h3{background:var(--r);color:#fff;margin:16px 0 0;padding:8px 12px;border-radius
 <div class="card"><h2>Бесплатная доставка по Хабаровску</h2>От <b>4000 ₽</b> суммы закупа. Доставка до 4000 ₽ — 200 ₽. Заявки менее 1500 ₽ — только самовывоз.<br><br><button class="btn" onclick="go('cat')">Выбрать товары</button></div>
 <div class="card"><h2>Контакты</h2>📍 г. Хабаровск, ул. Краснореченская, 90 лит А<br>📞 8-(4212)-940409 · 9:00–17:00<br>💬 WhatsApp: 8-924-400-0808</div>
 <div class="card"><h2>Как заказать</h2>1. Откройте «Наш ассортимент» и добавьте товары в корзину.<br>2. Укажите телефон и адрес, нажмите «Отправить».<br>3. Заявка придёт нам в WhatsApp — мы свяжемся с вами.</div></section>
-<section id="cat" class="hide"><div class="note"><b>Нажмите на товар — откроется карточка с фото и составом.</b> Кнопка «+» добавляет в корзину. Цена за кг/шт, как указано в названии. Оплата: наличными или переводом — цена в корзине зависит от способа.</div><div id="upd" style="font-size:12px;opacity:.7;margin:4px 0"></div><div class="cats" id="cats"></div><div id="list"></div></section>
+<section id="cat" class="hide"><div class="note"><b>Нажмите на товар — откроется карточка с фото и составом.</b> Кнопка «+» добавляет в корзину. Цена за кг/шт, как указано в названии. Оплата: наличными или переводом — цена в корзине зависит от способа.</div><div id="upd" style="font-size:12px;opacity:.7;margin:4px 0"></div><div class="sbar"><input id="q" type="search" placeholder="🔍 Поиск товара: например, курица, мука, повидло…" oninput="filt()" autocomplete="off" enterkeyhint="search"><div class="cats" id="cats"></div></div><div id="nf" class="note hide">Ничего не найдено. Попробуйте другое слово или позвоните нам.</div><div id="list"></div></section>
 </main>
 <div id="bar"><button class="btn" onclick="openCart()" id="bt"></button></div>
 <div id="pm" onclick="if(event.target==this)this.style.display='none'"><div><button onclick="$('pm').style.display='none'" style="float:right;border:0;background:none;font-size:26px;color:var(--t)">×</button><div id="pb"></div></div></div>
@@ -214,7 +214,7 @@ const D=`#Говядина
 const E={'Говядина':'🥩','Полуфабрикаты, сосиски':'🌭','Птица':'🍗','Свинина':'🥓','Субпродукты':'🍖','Рыба и изделия из нее':'🐟','Яйцо куриное':'🥚','Бакалея':'🥫','Приправа':'🧂','Овощи, грибы замороженные':'🥦','Чай':'🍵','Зерномучные продукты':'🌾','Масло, молочка':'🧈','Автотовары':'🧰','Пакеты':'🛍️','Рабочие перчатки и мешки':'🧤'};let ic='';
 const $=id=>document.getElementById(id),P=[],Q={};let H='',k=0,g=0;
 function render(D){P.length=0;H='';k=0;g=0;$('cats').innerHTML='';for(const q in Q)delete Q[q];D.split('\n').forEach(l=>{if(l[0]=='#'){g++;H+=(g>1?'</div>':'')+`<h3 id="g${g}">${(ic=E[l.slice(1)]||'🛒')} ${l.slice(1)}</h3><div>`;$('cats').innerHTML+=`<a href="#g${g}" onclick="event.preventDefault();$('g${g}').scrollIntoView({behavior:'smooth'})">${E[l.slice(1)]||'🛒'} ${l.slice(1)}</a>`}else{const[n,c,t,id]=l.split('|');P.push([n,+c,+t,ic,id||String(k+1)]);H+=`<div class="it" onclick="info(${k})"><div class="ic">${ic}</div><div class="n">${n}</div><div class="p">${(+c).toLocaleString('ru')} ₽</div><div class="q" id="q${k}" onclick="event.stopPropagation()"></div></div>`;k++}});
-$('list').innerHTML=H+'</div>'}
+$('list').innerHTML=H+'</div>';if($('q'))filt()}
 render(D);
 const M=n=>Math.round(n*100)/100,pm=()=>+document.querySelector('[name=pm]:checked').value;
 function ch(i,d){Q[i]=Math.max(0,(Q[i]||0)+d);if(!Q[i])delete Q[i];draw()}
@@ -272,6 +272,12 @@ I[76]={i:ph_pr,s:"Чеснок, ТМ «Янта», банка 100 г."};
 /* карточки: I[номер]={i:'data:image...',s:'состав'} */
 function info(i){const p=P[i],d=I[p[4]]||{};$('pm').style.display='block';$('pb').innerHTML=`<div class="pi">${d.i?`<img src="${d.i}" alt="" onclick="zoom(this.src)" style="cursor:zoom-in">`:p[3]}</div>${d.i?'<div style="text-align:center;font-size:12px;opacity:.7;margin-top:4px">🔍 нажмите на фото, чтобы увеличить</div>':''}<h2 style="color:var(--r);margin:8px 0">${p[0]}</h2><div><b>Цена:</b> ${p[1]} ₽ (наличные) · ${p[2]} ₽ (перевод)</div><div class="note"><b>Описание:</b> ${d.s||'информация уточняется — спросите у менеджера'}</div><div class="q" style="justify-content:center;margin:10px 0"><button onclick="ch(${i},-1);info(${i})">−</button><span>${Q[i]||0}</span><button class="a" onclick="ch(${i},1);info(${i})">+</button></div><button class="btn" style="width:100%" onclick="if(!Q[${i}])ch(${i},1);$('pm').style.display='none'">В корзину</button>`}
 function zoom(src){$('lbi').src=src;$('lb').style.display='flex'}
+function norm(t){return t.toLowerCase().replace(/ё/g,'е')}
+function filt(){const q=norm($('q').value.trim()).split(/\s+/).filter(Boolean);let any=false;
+document.querySelectorAll('#list h3').forEach(h=>{const box=h.nextElementSibling;let v=0;
+box.querySelectorAll('.it').forEach(r=>{const t=norm(r.querySelector('.n').textContent+' '+h.textContent);const ok=q.every(w=>t.includes(w));r.style.display=ok?'':'none';if(ok)v++});
+h.style.display=box.style.display=v?'':'none';if(v)any=true});
+$('nf').classList.toggle('hide',any||!q.length)}
 function openCart(){goal('open_cart');draw();$('cart').style.display='block'}
 function go(v){$('home').classList.toggle('hide',v!='home');$('cat').classList.toggle('hide',v!='cat');$('n1').className=v=='home'?'on':'';$('n2').className=v=='cat'?'on':'';scrollTo(0,0)}
 function send(via){const ph=$('ph').value.trim(),ad=$('ad').value.trim();if(!Object.keys(Q).length)return alert('Корзина пуста');if(!ph)return alert('Укажите телефон');
